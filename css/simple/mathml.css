@@ -1,0 +1,62 @@
+/*math, .inline-formula, .block-formula {
+	font-family: ComputerModern;	
+}
+
+math *[mathvariant="script"] {
+	font-family: ComputerModernCalligraphic;
+}
+
+math *[mathvariant="bold"] {
+	font-family: ComputerModern;
+	font-weight: bold;
+}
+
+math *[mathvariant="normal"] {
+	font-family: ComputerModern;
+}*/
+
+math, math * {
+	font-family: ComputerModern, Asana;
+}
+
+math *[mathvariant="script"] {		
+	font-family: ComputerModernCalligraphic;
+}
+
+/*math *[mathcolor="blue"] * { color: blue; }
+math *[mathcolor="red"] * { color: red; }*/
+
+
+/*
+
+	FIGURE STUFF
+
+*/
+
+figure { text-align: center; }
+figure > figcaption { 
+	font-size: 0.75em; 
+	margin-top: 0.5em;
+	text-align: center;
+}
+figure > figcaption:before {
+	content: "Figure: ";
+	color: #b1c800;
+	font-weight: bold;
+}
+
+figure > table ~ figcaption:before {
+	content: "Table: ";
+}
+
+table {
+	border: none;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 0.5em;
+}
+td, th { padding: 0.125em 0.5em 0.125em 0.5em; }
+th { font-weight: bold; }
+tr:nth-child(even) { background-color: #ddd; }
+tr:nth-child(odd) { background-color: #bbb; }

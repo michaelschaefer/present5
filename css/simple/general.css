@@ -1,0 +1,68 @@
+/* clear margin and padding for ALL elements */
+* {
+	margin: 0;	
+	padding: 0;
+	line-height: 110%;
+}
+
+body {
+	background-color: black;
+	color: white;
+	counter-reset: slide-number 0;
+	font-family: ComputerModern, sans-serif;
+	font-size: 32pt;
+	margin: 0;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	height: 100%;	
+	width: 100%;
+}
+
+div.key {
+	border: 0.1em solid black;
+	border-radius: 0.5em; 
+	display: inline-block;
+	margin-right: 0.125em;	
+	min-width: 1em;
+	padding-left: 0.25em;
+	padding-right: 0.25em;
+	text-align: center;
+	vertical-align: middle;
+}
+
+html {
+	height: 100%;
+	width: 100%;
+}
+
+h1 {
+    font-weight: normal;
+}
+
+pre {
+	font-size: 0.5625em;
+	overflow: hidden;	
+}
+
+#meta-data, #js-config {
+	display: none;
+}
+
+
+/*
+	GENERAL STYLING CLASSES
+*/
+
+.center { text-align: center; }
+.left { text-align: left; }
+.right { text-align: right; }
+
+.smallSkip { margin: 0.5em; }
+.mediumSkip { margin: 1em; }
+.bigSkip { margin: 2em; }
+
+.bottom { margin-left: 0; margin-right: 0; margin-top: 0; }
+.left { margin-bottom: 0; margin-right: 0; margin-top: 0; }
+.right { margin-bottom: 0; margin-left: 0; margin-top: 0; }
+.top { margin-bottom: 0; margin-left: 0; margin-right: 0; }

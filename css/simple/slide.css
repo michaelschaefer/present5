@@ -1,0 +1,145 @@
+article {
+	background-color: white;
+	background-image: none;
+	background-position: bottom;
+	background-repeat: no-repeat;
+	background-size: 100%;
+	color: black;
+	counter-increment: slide-number;
+	display: block;
+	font-size: 0.9375em;
+	margin: auto;
+	position: absolute;
+}
+
+body[data-background="wwu"] article { background-image: url("logos.svg") }
+body[data-background="wwu_cenos"] article { background-image: url("logos_cenos.svg"); }
+
+
+/*
+	TITLE SLIDE SETTINGS
+*/
+
+article.title>header {
+	background-color: #b1c800;
+	font-size: 1em;
+	margin: 1em auto;
+	position: relative;
+	width: 90%;
+}
+
+article.title>header h1 {
+	display: block;	
+	font-size: 1em;
+	font-weight: normal;
+	padding: 0.5em;
+	position: relative;
+	text-align: center;
+}
+
+article.title>header h2 {
+	display: block;
+	font-size: 0.5em;
+	font-weight: normal;
+	padding-bottom: 1em;
+	position: relative;
+	text-align: center;
+}
+
+article.title>section {
+	display: table;
+	height: 50%;
+	margin: auto;
+	width: 90%;
+}
+
+article.title > section > div.tableRow { display: table-row; }
+article.title > section > div.tableRow:first-child { height: 60%; }
+
+article.title > section div.authors, 
+article.title > section div.date {
+	display: table-cell;
+	text-align: center;
+	vertical-align: middle;
+}
+
+article.title > section div.date { font-size: 0.5em; }
+
+
+/*
+	SUBJECT SLIDE SETTINGS
+*/
+
+article.subject>header {
+	position: relative;
+	width: 100%;
+}
+
+article.subject>header h1 {
+	background-color: #b1c800;
+	font-size: 1em;
+	font-weight: normal;
+	padding: 0.25em 1em;
+	text-align: left;
+}
+
+article.subject>section {
+	display: table;
+	height: 80%;
+	width: 100%;
+	position: relative;
+}
+
+article.subject>section>div:nth-child(1) {	
+	display: table-cell;	
+	font-size: 0.625em;
+	padding: 0.4em 1.6em;
+	text-align: justify;
+	vertical-align: middle;
+}
+
+
+
+/*
+	SUBJECT AND NO-SUBJECT SLIDE SETTINGS
+*/
+
+article.subject>footer, article.no-subject>footer {
+	bottom: 0;
+	position: absolute;
+	width: 100%;
+}
+
+article.subject>footer>div.slide-number, article.no-subject>footer>div.slide-number {
+	display: block;
+	font-size: 0.5em;
+	height: 2.5em;
+	text-align: center;
+}
+
+article.subject>footer>div.slide-number:before, article.no-subject>footer>div.slide-number:before {
+	content: counter(slide-number);
+}
+
+
+/*
+	NO-SUBJECT ONLY SLIDE SETTINGS
+*/
+
+article.no-subject>header {
+	display: none;
+}
+
+article.no-subject>section {
+	display: table;
+	height: 88.7%;
+	width: 100%;
+}
+
+article.no-subject>section>div:nth-child(1) {	
+	display: table-cell;	
+	font-size: 0.625em;
+	padding: 0.4em 1.6em;
+	text-align: justify;
+	vertical-align: middle;
+}

@@ -1,0 +1,35 @@
+div.block {
+	color: #b1c800;
+	background-color: rgba(177, 200, 0, 0.1); /* rgba(0, 157, 209, 0.1); */
+	border-color: #b1c800;
+	border-radius: 0em;	
+	border-style: solid;
+	border-width: 0 0.25em;
+	display: block;	
+	margin-bottom: 0.25em;	
+	margin-top: 0.25em;
+	padding-bottom: 0.125em;	
+	padding-left: 0.375em;
+	padding-right: 0.375em;
+	padding-top: 0.0625em;
+}
+
+div.alert {	
+	background-color: rgba(204,0,0,0.1);
+	border-color: #c00;
+	color: #c00;
+}
+
+div.example {
+	background-color: rgba(0, 157, 209, 0.1);
+	border-color: #009dd1;
+	color: #009dd1;
+}
+
+div.block :nth-last-child(1) {
+	color: black;
+}
+
+div.block :nth-last-child(2) {
+	margin-bottom: 0.25em;
+}

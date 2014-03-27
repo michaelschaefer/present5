@@ -1,0 +1,41 @@
+@font-face {
+	font-family: "Asana";
+	font-style: normal;
+	font-weight: normal;	
+	src: url("Asana-Math.woff") format("woff");
+}
+
+@font-face {
+	font-family: "ComputerModern";
+	font-style: normal;	
+	font-weight: normal;
+	src: url("cmunbmr.woff") format("woff");
+}
+
+@font-face {
+	font-family: "ComputerModern";
+	font-style: italic;
+	font-weight: normal;
+	src: url("font/cmunbmo.woff") format("woff");	
+}
+
+@font-face {
+	font-family: "ComputerModern";	
+	font-style: normal;
+	font-weight: bold;
+	src: url("font/cmunbbx.woff") format("woff");		
+}
+
+@font-face {
+	font-family: "ComputerModern";	
+	font-style: italic;
+	font-weight: bold;	
+	src: url("font/cmunbxo.woff") format("woff");			
+}
+
+@font-face {
+	font-family: "ComputerModernCalligraphic";
+	font-style: normal;
+	font-weight: normal;	
+	src: url("font/newcmsy10.woff") format("woff");
+}

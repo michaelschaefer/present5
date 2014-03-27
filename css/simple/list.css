@@ -1,0 +1,74 @@
+dt {
+	font-weight: bold;
+	margin-bottom: 0.25em;
+}
+
+dd {
+	margin-left: 1.6em;
+	margin-bottom: 0.25em;
+}
+
+
+/* 
+	ul only configuration
+*/
+
+ul {	
+	list-style: none;
+	padding-top: 0.25em;
+	padding-left: 0.5em;
+	width: 100%;
+}
+
+ul > li:before {
+	color: #b1c800;
+	content: "\25b8";
+	margin-left: -1em;	
+	float: left;
+}
+
+ul > li {
+	display: block;
+    padding-bottom: 0.25em;
+    padding-left: 1em;    
+}
+
+li.wide { line-height: 2em; }
+
+
+/*
+	ol only configuration
+*/
+
+ol {
+	counter-reset: ol_layer1 0;
+	list-style: none;
+	padding-top: 0.25em;
+	padding-left: 0.5em;
+}
+
+ol ol { counter-reset: ol_layer2 0; }
+ol ol ol { counter-reset: ol_layer3 0; }
+
+ol>li:before {
+	content: counter(ol_layer1)".";
+	counter-increment: ol_layer1;
+	margin-left: -1em;
+	padding-right: 0.25em;
+}
+
+ol>li {
+	display: block;
+	padding-bottom: 0.25em;
+	padding-left: 1em;
+}
+
+ol ol>li:before {
+	content: counter(ol_layer1)"."counter(ol_layer2)".";
+	counter-increment: ol_layer2;
+}
+
+ol ol ol>li:before {
+	content: counter(ol_layer1)"."counter(ol_layer2)"."counter(ol_layer3);
+	counter-increment: ol_layer3;
+}

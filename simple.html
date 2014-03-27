@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<meta charset="utf-8">
+
+	<!-- presentation title -->
+	<title>Introducing present5</title>
+
+	<!-- css theme -->
+	<link rel="stylesheet" type="text/css" href="css/simple/theme.css">
+	
+	<!-- javascript framework -->
+	<script type="text/javascript" src="js/present5.js"></script>
+	<script type="text/javascript" src="css/simple/generateSlide.js"></script>
+</head>
+
+<body>
+
+	<header id="meta-data">
+		<div data-type="title">Introducing <b>present5</b></div>
+		<!-- <div data-type="subtitle">An HTML5 conform presentation framework<br/>(press <div class="key">&rarr;</div> to continue)</div> -->
+		<div data-type="authors">Michael Schaefer<br/>michael.schaefer@uni-muenster.de</div>
+		<div data-type="date">June 3, 2013</div>
+		<div data-type="language">en</div>
+	</header>
+
+	<header id="js-config">
+		<div data-variable="allowCycling" data-value="false"></div>
+		<div data-variable="allowNavigationByMouse" data-value="true"></div>
+		<div data-variable="allowMouseInThumbnailView" data-value="true"></div>
+		<div data-variable="presentationTime" data-value="30"></div>
+	</header>
+
+	<section class="title"></section>
+
+	<section class="subject">
+		<h1>Navigation</h1>
+		<div>
+			By default navigation is only possible via keyboard, so mouse actions are given in braces. The following commands are available in <b>present5</b>:<br/><br/>
+
+			<dl>
+				<dt>Next slide/overlay</dt>
+				<dd>
+					<div class="key">&rarr;</div>, <div class="key">Space</div> [left click, wheel up]
+				</dd>
+
+				<dt>Previous slide/overlay</dt>
+				<dd>
+					<div class="key">&larr;</div>, <div class="key">Backspace</div> [right click, wheel down]
+				</dd>			
+
+				<dt>Jump to a certain slide</dt>
+				<dd>
+					<div class="key">g</div> provides an input dialog for the desired slide number.
+				</dd>
+
+				<dt>Overview mode</dt>
+				<dd>
+					<div class="key">o</div> provides thumbnails of all slides. Navigate with arrow keys, select with enter; 'o' again to get back where you started from. [mouse: point & click]
+				</dd>
+			</dl>
+		</div>
+		<!-- this is a title slide -->
+	</section>
+
+	<section class="subject">
+		<h1>Source code</h1>
+		<div>
+			The following listing gives an exemplary <b>C++</b> implementation of the famous "Sieve of Eratosthenes" to find all primes numbers between 0 and 1000.<br/><br/>
+			<div class="block">
+				<div>Listing (eratosthenes.cc)</div>					
+				<pre>
+					#include &lt;iostream&gt;						
+
+					int main(int argc, char** argv) {
+					bool sieve[1001]; sieve[0] = false; sieve[1] = false;
+
+					for (unsigned int k = 2; k <= 1000; k++) {
+					sieve[k] = true;
+
+					for (unsigned int l = 2*k, l <= 1000; l += k) {
+					sieve[l] = false;
+				}
+			}
+
+			for (unsigned int k = 2; k <= 1000; k++) {
+			if (sieve[k] == true) {
+			std::cout << k << std::endl;
+		}
+	}
+}
+	</pre>
+	</div>
+	</div>
+	</section>
+
+	<section class="subject">
+		<h1>Blocks</h1>
+		<div>			
+			<div class="block">
+				<div>Binomial theorem</div>
+				<div>
+					Let \( x,y \in \mathbb{R} \) . Then,
+					<ol>
+						<li>\( (x+y)^2=x^2+2xy+y^2 \)
+							<ol>
+								<li>first binomial
+									<ol>
+										<li>additional layer</li>
+									</ol>
+								</li>
+							</ol>
+						</li>
+						<li>\( (x-y)^2=x^2-2xy+y^2 \)</li>
+						<li>\( (x+y)(x-y)=x^2-y^2 \)</li>
+					</ol>
+				</div>
+			</div>
+
+			<div class="block example" data-overlay="1">
+				<div>Example</div> 
+				<div>\( 49=7^2=(3+4)^2 \stackrel{1.}{=} 3^2+2\cdot 3\cdot 4+4^2=9+24+16=49 \)</div>
+			</div>
+
+			<div class="block alert" data-overlay="2">
+				<div>Caution</div>
+				<div>
+					The formula \( (x+y)^2=x^2+y^2 \) holds only iff \( x\cdot y = 0 \).
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="no-subject">
+		<div>
+			This is a test page without subject, so the &lt;section&gt; tag has the attribute class="no-subject".<br/><br/>
+			<div class="block">
+				<div>Gau&szlig;' theorem</div>
+				<div>Let \( \Omega \subset \mathbb{R}^d \) be a bounded domain with Lipschitz boundary. <div data-overlay="1">Then, for a vector-valued function \( F \in C^1(\Omega;\mathbb{R}^d) \) it holds \[ \begin{align} \int_\Omega \nabla \cdot F \, dx &= \int_{\partial\Omega} F \cdot \nu \, d\sigma \end{align} \]</div></div>
+			</div><br/>
+			Current drawback: There is an issue with align environments: Depending on content and font, some part of the right of some letters are cut off. Example: \[ \begin{align} a&=b \\ c+d&=e \end{align} \] which should render the equations &quot;a=b&quot; and &quot;c+d=e&quot;.			
+		</div>
+	</section>
+
+</body>
+
+</html>

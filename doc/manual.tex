@@ -1,0 +1,457 @@
+\documentclass{scrartcl}
+
+% package declarations
+\usepackage[english]{babel} 
+\usepackage{xcolor}
+\usepackage[T1]{fontenc}
+\usepackage[left=2cm, right=2cm, top=2.5cm, bottom=2.5cm]{geometry}
+\usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage{listings} 
+
+% meta information
+\author{Michael Schaefer} 
+\date{\today}
+\title{Manual for \present}
+
+% self defined commands
+\newcommand{\present}{\code{present5}}
+\newcommand{\code}[1]{{\tt #1}}
+\newcommand{\folder}{$\rightarrow$}
+\newcommand{\tag}[1]{\code{<#1>}}
+
+% configure list environment
+\lstset{backgroundcolor=\color{white!80!black}}
+\lstset{language=html}
+\lstset{numbers=left}
+\lstset{basicstyle=\scriptsize\ttfamily}
+\lstset{tabsize=2}
+
+
+\begin{document}
+
+\maketitle
+\begin{center}{\bf Abstract}\end{center}
+\begin{abstract}
+  \present~is a tool to create presentations like you do using PowerPoint or \LaTeX~beamer. It is based on HTML5, CSS and JavaScript and is thus platform independent. It also provides \LaTeX-to-MathML conversion which makes it a good choice even in a scientific environment. This document provides the reader with the knowledge to create and show presentations. It also aims to enable him to extend the tool or to provide new themes.
+\end{abstract}
+\newpage
+
+\tableofcontents
+\newpage
+
+
+% =============================
+% ===== INTRODUCTORY PART =====
+% =============================
+
+
+\section{About \present}
+\label{section:aboutPresent5} 
+
+
+Some time ago I had a discussion with a few colleges where we came to the conclusion that modern web technologies offer a nice way to completely platform independent presentations. In contrast to e.g. Microsoft's PowerPoint or PDFs generated with LaTeX it has (among others) the advantage that search engines like Google can directly access the content of the slides. Obviously we were not the first ones with this idea. There is a bunch of different frameworks for this purpose. However, I decided to start working on a new one. One reason for this was to provide a framework that needs as little additional source code around the actual content as possible, but the more important one can be put into the words "for educational purpose".
+
+
+\subsection{Features}
+\label{subsection:features} 
+
+
+\present~combines modern web technologies to a platform independent and standard compliant presentation framework. In detail, we use
+\begin{itemize}
+	\item {\bf HTML5} for the content,
+	\item {\bf CSS} for the layout and
+	\item {\bf JavaScript} for the navigation and other necessary program logic
+\end{itemize}
+In what follows the term \emph{core features} is used for building blocks of the framework that are realized in JavaScript and therefore available independent of the chosen layout. Core features include
+\begin{itemize}
+\item {\bf sequential navigation} by keyboard, mouse buttons and mouse wheel
+\item {\bf direct navigation} via user prompt and a special thumbnail view
+\item {\bf presenter mode} with slide preview, timer and notes on a secondary monitor
+\item {\bf overlays} for step-by-step slide opening
+\item {\bf automatic line number} of \tag{pre}  environments (useful for source code)
+\end{itemize}
+As a specialty for people working in science, you can directly put \LaTeX~code into your presentation which is converted into MathML by a plug-in.
+
+
+\subsection{System requirements}
+\label{subsection:systemRequirements} 
+
+
+The aim of \present~is to provide a presentation framework that is standard compliant and platform independent. So basically, your presentation should be able to work properly on any computer system that ships with a standard compliant web browser. This is e.g. true for the latest Firefox and Chrome releases. Unfortunately there are some drawbacks if you want to use MathML. To my knowledge, currently (meaning \today) Firefox is the only browser with full MathML support.\footnote{Chrome 24 introduced MathML support, but it was deactivated again in Version 25, so Firefox seems to stay the browser of choice.}
+
+At last there is of course some requirement on the user itself. In order to make your slides with \present~you should know at least some basics about HTML5 and the interplay with CSS (e.g. what a tag's \code{class="\ldots"} attribute does).
+
+
+\subsection{Structure of the manual}
+\label{subsection:structureOfTheManual}
+
+The rest of the manual will address three different kind of people. \emph{User} are those who want to use \present~ to present slides that were already created by someone else, while \emph{creators} wish to build a new presentation and \emph{developers} aim to extend the framework itself or to provide new themes for it. There will be a separate section for each of them.
+
+
+% ================================
+% ===== PRESENT5 MANUAL PART =====
+% ================================
+
+
+\section{User manual}
+\label{sec:userManual}
+
+
+In our terms, a \emph{user} is someone who just wants to give a presentation that is already created. This section will tell you all about the features of \present.
+
+\subsection{Sequential navigation}
+\label{subsection:sequentialNavigation}
+
+The most basic feature is sequential navigation and it is achieved as follows:
+\begin{description}
+\item[forward:] to go to the next slide or overlay, use
+  \begin{itemize}
+  \item right arrow and spacebar on keyboard
+  \item left click on mouse
+  \item mouse wheel up
+  \end{itemize}
+\item[backward:] to go back to the last slide or overlay, use
+  \begin{itemize}
+  \item left arrow and backspace on keyboard
+  \item right click on mouse
+  \item mouse wheel down
+  \end{itemize}
+\end{description}
+Note that mouse navigation has to be enabled by the presentation, so it might not be available. 
+
+\subsection{Direct navigation}
+\label{subsection:directNavigation}
+
+As a contrast, there are ways to navigate directly to a certain slide. The most easy one is to press g on keyboard. This opens a user promt where you can enter the slide number you want to go to. You always jump to the first overlay of that slide.
+
+A more elaborate feature is the \emph{thumbnail view}. It can be open by pressing o on keyboard and shows you a grid of small thumbnails for the slides. You can navigate through the thumbnails using the arrow keys or by moving the mouse cursor. Once you have chosen the proper thumbnail, just press enter or left-click it to jump to the first overlay of that slide. As in the previous section, mouse actions are only possible if enabled by the presentation.
+
+\subsection{Dual mode}
+\label{subsection:dualMode}
+
+The dual mode is useful in two-monitor environment. It is used to show the plain presentation on one monitor, while the other one is used give the presenter additional information like a clock, custom notes and a preview of the following slide. The most common setup would be to show the presentation on a projector while having the additional information on your laptop display.
+
+The dual mode is started by pressing d on keyboard. This opens another window also showing the presentation, the \emph{secondary presentation}. This presentation can be moved to the secondary display as it is remote controlled by the first one, the \emph{primary presentation}. Once activated, you have the following actions at hand:
+\begin{description}
+\item[freeze mode:] press f on keyboard to toggle this mode. As long as on freeze mode, navigation only changes the primary presentation. The secondary presentation jumps to the right slide immediately after you deactivate freeze mode.
+\item[start/stop timer:] \present~has built-in timer functionality. Press s on keyboard to start or stop the timer, depending on if it is running or not. The timer is a countdown, if the presentation provides a variable called \code{presentationTime}, cf. appendix \ref{sec:frameworkConfiguration}. Otherwise it acts as stopwatch.
+\item[reset timer:] If started accidentally, the timer can be reset by pressing r on keyboard. Time is reset according to \code{presentationTime}, if this value is set, otherwise it start at 0.
+\end{description}
+The dual mode is closed by pressing d again. This also closes the windows with the secondary presentation.
+
+\subsection{Additional actions}
+\label{subsection:additionActions}
+
+If for some reason you need to refresh the presentation, just press F5. Note that refreshing in dual mode in not allowed since this would break the link between primary and secondary presentation. You have to deactivate it in advance.
+
+If you change the window size, the presentation has to be adjusted. You can use F4 for that. In dual mode, both primary and secondary presentation are resized simultaneously.
+
+
+
+
+
+% ===============================
+% ===== CREATOR MANUAL PART =====
+% ===============================
+
+
+\section{Creator manual}
+\label{section:creatorManual} 
+
+
+By the term \emph{creator} we mean people who are creating slides using \present~"as is". These people will be mainly interested the rest of this chapter only. If you want to provide new layout themes or wish to extend the code basis you are considered a \emph{developer}. In that case you should read section \ref{subsection:directoryStructure}  and then proceed to section \ref{section:developerManual}. If instead you already have a presentation and just want to present it, you are a \emph{user} and should have a look into section \ref{sec:userManual} instead.
+
+
+\subsection{Directory structure}
+\label{subsection:directoryStructure}
+
+The \present~distribution has the following basic directory tree:
+\begin{itemize}
+	\item[\folder] \code{css}
+	\item[\folder] \code{doc}
+	\item[\folder] \code{js}
+\end{itemize}
+The \code{css} directory contains the available themes. Currently we provide only one theme. It is called \code{simple}. Each theme is a collection of CSS and necessary media files such as background images or font files.
+
+The name of the \code{doc} directory speaks for itself. The manual you are just reading is located there.
+
+The program logic is coded in JavaScript. The neccessary code files are located in \code{js} together with some third-party scripts (currently just the \LaTeX-to-MathML mechanism).
+
+
+\subsection{HTML skeleton} 
+\label{subsection:htmlSkeleton} 
+
+
+In this section we assume that your presentation file is named \code{presentation.html} and placed in the root directory of the \present~distribution. The following listing can serve as a template. Important parts will be discussed below, parts in \code{[\ldots]} have to be changed by you.
+
+\begin{lstlisting}[caption={HTML skeleton}\label{listing:htmlSkeleton}]
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>[your title]</title>
+	<link rel="stylesheet" type="text/css" href="[path to your theme]/theme.css">	
+	<script type="text/javascript" src="js/present5.js"></script>
+	<script type="text/javascript" src="[path to your theme]/generateSlide.js"></script>
+</head>
+
+<body>
+	[your content]
+</body>
+
+</html>
+\end{lstlisting}
+
+\begin{description}
+	\item[Line 1] The \code{DOCTYPE} advises the browser to render the document as HTML file
+	\item[Line 5] In order to display special characters (especially in MathML) font encoding should be set to unicode.
+	\item[Line 7,9] Replace \code{[path to your theme]} with the relative path (i.e. starting with \code{css/}) of your favorite theme's folder . Have a look into the \code{css} directory for available themes.
+\end{description}
+
+The major work is to fill \code{[your content]} with the actual presentation. The next section will teach you the basics about this.
+
+
+\subsection{Creating the presentation's content}
+\label{subsection:creatingPresentation}
+
+Inside the \tag{body} tag you can do basically three things: Specify meta information for the presentation, configure the framework and provide content for slides.
+
+\subsubsection{Meta information} 
+
+You start with \tag{header id="meta-data"}. Inside of this you include one or more tags of the form \tag{div data-type="[type]"}\code{[content]}\tag{/div}. For \code{[type]} you can choose between the following values:
+\begin{itemize}
+\item title
+\item subtitle
+\item authors
+\item date
+\item language
+\end{itemize}
+Most of this should be self-explanatory. Just a few words about language: Its value will be put into the \tag{body} tag, i.e. we will end up with \tag{body data-language="..."}. Themes may use this value to localize e.g. background images for different languages. The value of \code{[content]} can be arbitray HTML.
+
+\subsubsection{Framework configuration} 
+\label{subsubsection:frameworkConfiguration}
+
+Some parameters of the framework can be set by the creator. Therefore, include a block that looks like this:
+\begin{lstlisting}
+<header id="js-config">
+	<div data-variable="key" data-value="value"></div>
+</header>
+\end{lstlisting}
+Of course you can have multiple \tag{div} tags to configure different variables. A complete list of all allowed key-value pairs can be found in appendix \ref{sec:frameworkConfiguration}.
+
+\subsubsection{Slides} Each slide consist of exactly one \tag{section class="[slideType]"}\code{[content]}\tag{/section} tag. Depending on \code{[slideType]}, your \code{[content]} looks different:
+\begin{itemize}
+\item title: a title page contains only auto-generated meta information, so leave \code{[content]} empty.
+\item subject: for a slide with a subject you need to replace \code{[content]} with exactly two tags: the first one for the subject itself and the second one for the content; they do not need any attributes. It is important to keep this order!
+\item no-subject: same as above, but without the \tag{div} tag for the subject.
+\end{itemize}
+
+\subsubsection{Summary}
+
+To sum up the last three sections, below we give examplary code that you can e.g. put as \code{[your content]} in listing \ref{listing:htmlSkeleton} to get a complete presentation template.
+
+\begin{lstlisting}[caption={Sample slides}\label{listing:sampleSlides}]
+<header id="meta-data">
+	<div data-type="title">Introducing <b>present5</b></div>
+	<div data-type="subtitle">
+		An HTML5 conform presentation framework<br/>
+		(press <div class="key">&rarr;</div> to continue)
+	</div>
+	<div data-type="authors">Michael Schaefer</div>
+	<div data-type="date">23rd November 2012</div>
+	<div data-type="language">en</div>
+</header>
+
+<header id="js-config">
+	<div data-variable="allowCycling" data-value="false"></div>
+	<div data-variable="allowNavigationByMouse" data-value="true"></div>
+</header>
+
+<section class="title"></section>
+
+<section class="subject">
+	<div>Subject of the slide</div>
+	<div>Content</div>
+</section>
+
+<section class="no-subject">
+	<div>Content</div>
+</section>
+\end{lstlisting}
+
+The code starts with meta information for the presentation, followed by some framework configuration. After that, three slides are created using all three default types.
+
+
+\subsection{Special features}
+\label{section:special-features}
+
+There are two additional features contained in \present~ that may make it easier for you to create your presentation:
+
+\begin{description}  
+\item[LaTeX support:]
+  For scientific presentations that need mathematical formulas there is a specialty: You can provide \LaTeX~code between \code{\textbackslash(...\textbackslash)} for an inline formula or \code{\textbackslash[...\textbackslash]}  for an offset formula. \present~uses MathJax\footnote{\href{http://www.mathjax.org}{http://www.mathjax.org}} to convert it to MathML. For details we refer to the next section.
+
+\item[Overlays:]
+  Sometimes it is useful to uncover a slide step by step. To that end, any tag you use inside the slide's content area can be equipped with an attribute \code{data-overlay=\#}, where \code{\#} has to be replaced with a positive natural number.
+\end{description}
+
+
+\subsection{Conversion and export}
+\label{subsection:conversion}
+
+This section is dedicated to the task of transforming a presentation into a self-contained HTML document that is ready for publication. This process is pretty easy given you have a Python interpreter running on your system. It consists of the following two steps:
+\begin{description}
+\item[conversion:] Press c on keyboard. This triggers the conversion process, which replaces the \LaTeX~code with MathML using MathJax and allows you to save the processed HTML code
+\item[export:] Once you stored the converted file on disk, you can use the Python script \code{exporter.py} in \present's root directory to create a self-contained presentation. Self-contained means, that the resulting file includes literally everything (including fonts and media files). This single file is anything you need in order to show your presentation. To see the exporter's documentation just run it without further command line arguments.
+\end{description}
+
+
+
+% =================================
+% ===== DEVELOPER MANUAL PART =====
+% =================================
+
+
+\section{Developer manual}
+\label{section:developerManual} 
+
+Yet to be done
+
+
+% =========================
+% ===== APPENDIX PART =====
+% =========================
+
+
+\pagebreak
+\begin{appendix}
+
+
+\section{Framework configuration}
+\label{sec:frameworkConfiguration}
+
+
+This section provides a list of variable-value pairs for the framework configuration, cf. section \ref{subsubsection:frameworkConfiguration}.
+
+\begin{description}
+\item[\code{allowCycling}] (default: false)
+  \begin{description}
+  \item[\code{true}:] last slide is followed by first one again, same in the opposite direction
+  \item[\code{false}:] presentation stops with first/last slide
+  \end{description}
+
+\item[\code{allowMouseInThumbnailView}] (default: false)
+  \begin{description}
+  \item[\code{true}:] mouse is allowed for selecting slides in thumbnail view
+  \item[\code{false}:] just keyboard navigation
+  \end{description}
+
+
+\item[\code{allowNavigationByMouse}] (default: false)
+  \begin{description}
+  \item[\code{true}:] additional navigation via mouse buttons and wheel
+  \item[\code{false}:] just keyboard navigation
+  \end{description}
+
+\item[\code{aspectRatio}] (default: 16:9)\\Select the aspect ratio for the presentation. In general, any value can be specified in the format ``a:b''.
+
+\item[\code{presentationTime}] (default: unset)\\Time for the presentation in minutes (as integer). If set, the timer in dual mode (cf. \ref{subsection:dualMode}) will start as countdown clock with this value.
+\end{description}
+
+
+\section{\code{simple} theme documentation}
+\label{sec:simpleThemeDocumentation}
+
+This section explains all features of the \code{simple} theme that is supplied by \present.
+
+\subsection{Parts}
+\label{subsection:parts}
+
+
+\subsubsection{Slides}
+\label{subsubsection:slides}
+
+One slide is represented by a \tag{section} tag. There are three different kind of slides, depending on the \code{class} attribute's value:
+\begin{itemize}
+\item \code{title}: An auto-generated title slide. Content should be left empty.
+\item \code{subject}: Slide with headline. Expects an \tag{h1} tag for the headline followed by a \tag{div} for the content. Keep this order!
+\item \code{no-subject}: Slide without headline. Expects one \tag{div} tag for the content.
+\end{itemize}
+
+
+\subsubsection{Blocks}
+\label{subsubsection:blocks}
+
+In order to highlight certain parts of a slide you can use pre-formatted blocks. In general, a block is nothing more than a \tag{div class="block"}. There are three different types of blocks which differ in the color of background and border: standard, alert and example. The two latter ones can be specified by adding \code{alert} resp. \code{example} as additional argument in the class attribute of the surrounding \tag{div}, e.g. \tag{div class="block alert"}.
+
+The block is supposed to be filled with an \tag{h1} tag for the headline, followed by another tag for the content. The content tag is not limited to \tag{div}, it can be anything you like. You must keep this order to make it work.
+ 
+
+\subsubsection{Figures}
+\label{subsubsection:figures}
+
+To include content with a description below it -- like images or tables -- \code{simple} provides a pre-configured \tag{figure} tag which allows for providing both content and description.
+
+For the content you are allowed to include as many arbitrary tags as you like. By default, the content will be centered and has a small margin to the description.
+
+To include a description, add a \tag{figcaption} tag right below the content. The description will automatically be preceeded by the string ``Figure: '', unless you have a \tag{table} in the figure's content. In that case, the preceeding string will be ``Table: ''. Numbering is not supported.
+
+\subsubsection{Margins}
+\label{subsubsection:margins}
+
+The theme is configured in such a way that margins between standard elements like blocks, lists and figures  \emph{should} look alright by default. Of course, this will not always work. That's why we introduced some means to give additional margins by hand. You can use the \code{class="..."} attribute with the following values: \code{smallSkip} (0.5em margin), \code{mediumSkip} (1em) or \code{bigSkip} (2em).
+
+By default, this produces a margin in all four directions (left, right, top, bottom). If you want to specify the direction of the margin you can add \code{bottom}, \code{left}, \code{right} or \code{top}.\footnote{Due to the nature of CSS it is important to write the direction \emph{after} the skip.} Combinations will not work.
+
+\subsubsection{Tables}
+\label{subsubsection:tables}
+
+\code{simple} provides pre-formatted tables. By default, tables are horizontally centered and have the following additional properties:
+\begin{itemize}
+\item no outer border
+\item small transparent spacing between cells
+\item the rows' background color alternates between two tones of grey
+\end{itemize}
+
+
+\subsection{Overview}
+
+\begin{description}
+\item[\tag{body}] ~\\
+  can be equipped with an attribute \code{data-background="..."}. Possible values:
+  \begin{itemize}
+  \item \code{wwu}: Show logos of \href{http://www.uni-muenster.de}{University of Münster} and \href{http://wwwmath.uni-muenster.de/42/en/institute/computational-and-applied-mathematics/}{Applied Mathematics Münster} at the bottom of the presentation
+  \item \code{wwu\_cenos}: Show logos as above an additionally the logo of the \href{http://www.uni-muenster.de/CeNoS/en/index.html}{Center for Nonlinear Science} (CeNoS)
+  \end{itemize}
+  If omitted, the background is just white.
+\item[\tag{section}]~\\
+  {\bf class attributes}: title, subject, no-subject (cf. \ref{subsubsection:slides})
+\item[\tag{*}]~\\
+  {\bf class attributes}:
+  \begin{itemize}
+  \item {\bf alignment}: center, left, right
+  \item {\bf margins}: smallSkip, mediumSkip, bigSkip (cf. \ref{subsubsection:margins})
+  \item {\bf margin directions}: bottom, left, right, top (cf. \ref{subsubsection:margins})
+  \end{itemize}
+\item[\tag{div class="block"}] (cf. \ref{subsubsection:blocks}) \\
+  {\bf additional class attributes}: alert, example\\
+  {\bf supported children}\footnote{i.e. tags that get a special default layout if they follow the specified parent tag}: \tag{h1} for title, \tag{*} for content. Keep this order!
+\item[\tag{figure}] (cf. \ref{subsubsection:figures}) \\
+  {\bf area of use}: wrap e.g. images, graphs or tables inside of it\\
+  {\bf supported children}: \tag{figcaption} as last tag
+\item[\tag{ol}] ~\\
+  {\bf specialty}: supports automated numeric numbering of to three layers (e.g. 1.2.4)
+\item[\tag{pre}] ~\\
+  {\bf specialty}: automated line numbering for enclosed content
+\item[\tag{tr}] ~\\
+  {\bf specialty}: background color of table rows alternates
+
+\end{description}
+
+
+\end{appendix}
+
+
+\end{document}
